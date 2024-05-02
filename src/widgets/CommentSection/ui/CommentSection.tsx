@@ -16,7 +16,7 @@ const CommentSection = ({ comments }: CommentSectionProps) => {
     <Group header="Comments">
       <SplitLayout>
         <SplitCol>
-          {comments.slice(0, 1).map((comment) => (
+          {comments.slice(0, 3).map((comment) => (
             <RootComment commentId={comment} key={comment} />
           ))}
         </SplitCol>

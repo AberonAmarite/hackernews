@@ -1,6 +1,8 @@
 import {
   Accordion,
+  Button,
   Card,
+  Div,
   Paragraph,
   SimpleCell,
   Spacing,
@@ -32,12 +34,7 @@ const Replies = lazy(() => import("./Replies.tsx"));
 const Comment = ({ commentId, className, first = false }: CommentProps) => {
   const { data, error, isLoading } = useGetCommentByIdQuery(commentId);
   const [expanded, setExpanded] = useState(!first);
-  const [repliesRendered, setRepliesRendered] = useState(false);
-  useEffect(() => {
-    if (!first && data && !isLoading) {
-      window.dispatchEvent(new Event("resize"));
-    }
-  }, [data, first, isLoading]);
+
   if (isLoading) {
     return <div>Loading...</div>;
   }
@@ -64,28 +61,16 @@ const Comment = ({ commentId, className, first = false }: CommentProps) => {
             <DangerousHTML text={text} />
           </Paragraph>
           {kids && (
-            <Accordion
-              onChange={() => setExpanded(!expanded)}
-              expanded={first || repliesRendered}
-            >
-              <Accordion.Summary
-                ExpandIcon={Icon24AddOutline}
-                CollapseIcon={Icon24MinusOutline}
-              >
-                {expanded ? "Hide replies" : "Load replies"}
-              </Accordion.Summary>
+            <>
+              <Button onClick={() => setExpanded(!expanded)}>
+                <Div>{expanded ? "Hide replies" : "Load replies"}</Div>
+              </Button>
               {expanded && (
-                <Accordion.Content>
-                  <Suspense fallback={<Spinner />}>
-                    <Replies
-                      replyIds={kids}
-                      first={first}
-                      setRepliesRendered={setRepliesRendered}
-                    />
-                  </Suspense>
-                </Accordion.Content>
+                <Suspense fallback={<Spinner />}>
+                  <Replies replyIds={kids} />
+                </Suspense>
               )}
-            </Accordion>
+            </>
           )}
         </SplitCol>
       </SplitLayout>

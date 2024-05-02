@@ -5,7 +5,6 @@ import { useEffect, useState } from "react";
 import Comment from "./Comment";
 interface RepliesProps {
   replyIds: number[];
-  first: boolean;
 }
 
 // function getAllReplies(replyIds: number[]) {
@@ -17,10 +16,7 @@ interface RepliesProps {
 //         ReplyElements.push(<Comment commentId={currentComment} key={currentComment} className={styles.commentReply} />)
 //     }
 
-const Replies = ({ replyIds, first, setRepliesRendered }: RepliesProps) => {
-  useEffect(() => {
-    setRepliesRendered(true);
-  });
+const Replies = ({ replyIds }: RepliesProps) => {
   return replyIds?.map((comment) => (
     <Comment
       commentId={comment}
