@@ -2,6 +2,8 @@
 
 Used: Feature-sliced design, TS, RTK + RTK Query, CSS modules
 URL VK Mini App: https://vk.com/app51916819
+Actually finished before the deadline, check commit time
+Честно говорю
 
 Этот шаблон предоставляет базовый код и настройки для создания мини-приложения внутри ВКонтакте.  
 В качестве сборщика проекта выступает [Vite](https://vite-docs-ru.vercel.app/guide/), подробнее про его конфигурацию и дополнительные плагины можно прочитать [здесь](https://vite-docs-ru.vercel.app/config/) и [здесь]().
