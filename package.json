@@ -10,6 +10,7 @@
     "preview": "vite preview",
     "tunnel": "vk-tunnel --http-protocol=http --host=localhost --port=5173",
     "deploy": "vite build && vk-miniapps-deploy"
+    
   },
   "dependencies": {
     "@reduxjs/toolkit": "^2.2.3",
