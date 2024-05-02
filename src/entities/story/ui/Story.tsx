@@ -4,15 +4,24 @@ import { useGetStoryItemByIdQuery } from "../../../shared/api/news";
 import { useRouteNavigator } from "@vkontakte/vk-mini-apps-router";
 import { routes } from "../../../shared/routes/routes";
 import StoryDetails from "./StoryDetails";
+import { useEffect } from "react";
+import { addStoryDetails } from "../model/storySlice";
+import { useDispatch } from "react-redux";
 
 interface StoryProps {
   id: number;
 }
 
 const Story = ({ id }: StoryProps) => {
+  const dispatch = useDispatch();
   const { data, error, isLoading } = useGetStoryItemByIdQuery(id);
   const routeNavigator = useRouteNavigator();
-
+  useEffect(() => {
+    if (!isLoading && !error && data) {
+      dispatch(addStoryDetails(data));
+    }
+  }),
+    [data, error, isLoading];
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Error</div>;
   if (!data) return <div>No data</div>;

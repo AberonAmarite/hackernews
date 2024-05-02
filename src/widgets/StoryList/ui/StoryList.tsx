@@ -1,7 +1,9 @@
-import React from "react";
+import React, { memo, useEffect, useState } from "react";
 import Story from "../../../entities/story";
-import { useGetTopStoriesQuery } from "../../../shared/api/news";
+import { hackernewsApi, useGetTopStoriesQuery } from "../../../shared/api/news";
 import { CardGrid, Group, Header } from "@vkontakte/vkui";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../app/store";
 const storyDetails = {
   by: "todsacerdoti",
   descendants: 52,
@@ -16,15 +18,44 @@ const storyDetails = {
   type: "story",
   url: "https://sqlite.org/draft/whybytecode.html",
 };
+// need to update Story only if props change, StoryList updates due to Story component
+// this causes rerender loop, so memo is used to prevent this
+// TODO fix this issue via proper data fetching
+const MemoizedStory = memo(Story);
+
 const StoryList = () => {
   const { data, error, isLoading } = useGetTopStoriesQuery();
+  const [stories, setStories] = useState<number[]>([]);
+  useEffect(() => {
+    if (!data) return;
+    setStories(data?.slice(0, 5) || []);
+  }, [data]);
+
+  const fetchedDetails = useSelector((state: RootState) => state.stories);
+  // useEffect(() => {
+  //   if (!data) return;
+  //   setStories(data || []);
+  // }, [data]);
+
+  useEffect(() => {
+    if (!data) return;
+    const sorted =
+      fetchedDetails
+        .slice(0, 5)
+        .sort((a, b) => b.time - a.time)
+        .map((detail) => detail.id) || [];
+    console.log("🚀 ~ useEffect ~ sorted:", sorted);
+    setStories(sorted);
+  }, [data, fetchedDetails]);
+
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Error</div>;
+
   return (
     <Group header={<Header mode="secondary">New Stories</Header>}>
       <CardGrid size="l">
-        {data?.slice(0, 5)?.map((id) => (
-          <Story key={id} id={id} />
+        {stories?.map((id) => (
+          <MemoizedStory key={id} id={id} />
         ))}
       </CardGrid>
     </Group>

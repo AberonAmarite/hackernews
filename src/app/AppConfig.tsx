@@ -14,7 +14,7 @@ import { transformVKBridgeAdaptivity } from "../shared/utils";
 import { router } from "../shared/routes/routes";
 import { App } from "./App";
 import { Provider } from "react-redux";
-import { store } from "../shared/api/store";
+import { store } from "./store";
 import { StrictMode } from "react";
 
 export const AppConfig = () => {
