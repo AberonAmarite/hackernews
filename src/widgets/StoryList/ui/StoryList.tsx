@@ -1,34 +1,39 @@
 import React, { memo, useEffect, useState } from "react";
 import Story from "../../../entities/story";
 import { hackernewsApi, useGetTopStoriesQuery } from "../../../shared/api/news";
-import { CardGrid, Group, Header } from "@vkontakte/vkui";
+import {
+  CardGrid,
+  Div,
+  Group,
+  Header,
+  IconButton,
+  SplitLayout,
+} from "@vkontakte/vkui";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../app/store";
-const storyDetails = {
-  by: "todsacerdoti",
-  descendants: 52,
-  id: 40206752,
-  kids: [
-    40207533, 40208077, 40207124, 40207603, 40208036, 40206950, 40207245,
-    40207444, 40207740, 40207412, 40207194, 40207097,
-  ],
-  score: 236,
-  time: 1714445323,
-  title: "Why SQLite Uses Bytecode",
-  type: "story",
-  url: "https://sqlite.org/draft/whybytecode.html",
-};
+import { Icon24Refresh } from "@vkontakte/icons";
+
 // need to update Story only if props change, StoryList updates due to Story component
 // this causes rerender loop, so memo is used to prevent this
 // TODO fix this issue via proper data fetching
 const MemoizedStory = memo(Story);
 
+const storiesPerPage = 100;
+
 const StoryList = () => {
-  const { data, error, isLoading } = useGetTopStoriesQuery();
-  const [stories, setStories] = useState<number[]>([]);
+  const { data, error, isLoading, refetch } = useGetTopStoriesQuery(undefined, {
+    // every minute we update
+    pollingInterval: 60_000,
+    skipPollingIfUnfocused: true,
+  });
+  const [stories, setStories] = useState<number[]>(
+    data?.slice(0, storiesPerPage) || []
+  );
+  console.log("🚀 ~ StoryList ~ stories:", stories);
   useEffect(() => {
     if (!data) return;
-    setStories(data?.slice(0, 5) || []);
+
+    setStories(data?.slice(0, storiesPerPage) || []);
   }, [data]);
 
   const fetchedDetails = useSelector((state: RootState) => state.stories);
@@ -38,10 +43,10 @@ const StoryList = () => {
   // }, [data]);
 
   useEffect(() => {
-    if (!data) return;
+    if (!data || !fetchedDetails) return;
     const sorted =
       fetchedDetails
-        .slice(0, 5)
+        .slice(0, storiesPerPage)
         .sort((a, b) => b.time - a.time)
         .map((detail) => detail.id) || [];
     console.log("🚀 ~ useEffect ~ sorted:", sorted);
@@ -52,7 +57,20 @@ const StoryList = () => {
   if (error) return <div>Error</div>;
 
   return (
-    <Group header={<Header mode="secondary">New Stories</Header>}>
+    <Group
+      header={
+        <SplitLayout>
+          <Header mode="secondary">New Stories</Header>
+          <IconButton
+            title="Refresh News"
+            style={{ cursor: "pointer" }}
+            onClick={refetch}
+          >
+            <Icon24Refresh />
+          </IconButton>
+        </SplitLayout>
+      }
+    >
       <CardGrid size="l">
         {stories?.map((id) => (
           <MemoizedStory key={id} id={id} />

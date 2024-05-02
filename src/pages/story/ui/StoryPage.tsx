@@ -16,7 +16,7 @@ const StoryPage = ({ nav }: StoryPageProps) => {
   const params = useParams();
   console.log("🚀 ~ StoryPage ~ params:", params);
   const storyId = Number(params?.id);
-  const { data, error, isLoading } = useGetStoryItemByIdQuery(storyId);
+  const { data, error, isLoading, refetch } = useGetStoryItemByIdQuery(storyId);
   if (isLoading) return <div>Loading...</div>;
   if (error || !data) return <div>Error</div>;
   const { title, kids } = data;
@@ -26,7 +26,7 @@ const StoryPage = ({ nav }: StoryPageProps) => {
       <Group header={<Title level="1">{title}</Title>}>
         <StoryDetails data={data} />
       </Group>
-      <CommentSection comments={kids} />
+      <CommentSection comments={kids} refetch={refetch} />
     </Panel>
   );
 };
