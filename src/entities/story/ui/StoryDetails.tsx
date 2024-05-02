@@ -6,15 +6,15 @@ import {
   Icon20User,
   Icon24AddAwardsOutline,
 } from "@vkontakte/icons";
-import { getHoursAgo } from "../../../shared/utils/lib/date";
+import { getTimeAgo } from "../../../shared/utils/lib/date";
 import { Story as StoryDetailsType } from "../model/Story";
 interface StoryDetailsProps {
   data: StoryDetailsType;
 }
 const StoryDetails = ({ data }: StoryDetailsProps) => {
   const { by, descendants, score, time, url } = data;
-  const hoursAgo = getHoursAgo(time);
-  const { hostname } = new URL(url);
+  const timeAgo = getTimeAgo(time);
+  const hostname = url && new URL(url).hostname;
   return (
     <SplitLayout>
       <SimpleCell title="Author" before={<Icon20User />}>
@@ -24,21 +24,23 @@ const StoryDetails = ({ data }: StoryDetailsProps) => {
         {score}
       </SimpleCell>
       <SimpleCell title="Time of publishing" before={<Icon16Clock />}>
-        {hoursAgo + " hours ago"}
+        {timeAgo}
       </SimpleCell>
       <SimpleCell title="Comment count" before={<Icon16Message />}>
         {descendants + " comments"}
       </SimpleCell>
-      <SimpleCell title="Story link" before={<Icon20Chain />}>
-        <Link
-          onClick={(e) => {
-            e.stopPropagation();
-          }}
-          href={url || ""}
-        >
-          {hostname}
-        </Link>
-      </SimpleCell>
+      {hostname && (
+        <SimpleCell title="Story link" before={<Icon20Chain />}>
+          <Link
+            onClick={(e) => {
+              e.stopPropagation();
+            }}
+            href={url || ""}
+          >
+            {hostname}
+          </Link>
+        </SimpleCell>
+      )}
     </SplitLayout>
   );
 };

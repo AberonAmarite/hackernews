@@ -29,7 +29,6 @@ const StoryList = () => {
   const [stories, setStories] = useState<number[]>(
     data?.slice(0, storiesPerPage) || []
   );
-  console.log("🚀 ~ StoryList ~ stories:", stories);
   useEffect(() => {
     if (!data) return;
 
@@ -43,7 +42,10 @@ const StoryList = () => {
   // }, [data]);
 
   useEffect(() => {
-    if (!data || !fetchedDetails) return;
+    if (!data || !fetchedDetails || fetchedDetails.length !== storiesPerPage)
+      return;
+    console.log("🚀 ~ useEffect ~ fetchedDetails:", fetchedDetails);
+
     const sorted =
       fetchedDetails
         .slice(0, storiesPerPage)
@@ -62,6 +64,7 @@ const StoryList = () => {
         <SplitLayout>
           <Header mode="secondary">New Stories</Header>
           <IconButton
+            aria-label="Refresh News"
             title="Refresh News"
             style={{ cursor: "pointer" }}
             onClick={refetch}

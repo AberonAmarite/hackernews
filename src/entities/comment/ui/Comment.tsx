@@ -20,7 +20,7 @@ import {
   Icon24AddOutline,
   Icon24MinusOutline,
 } from "@vkontakte/icons";
-import { getHoursAgo } from "../../../shared/utils/lib/date";
+import { getTimeAgo } from "../../../shared/utils/lib/date";
 import styles from "./Comment.module.css";
 import { cn } from "../../../shared/utils/lib/class";
 import { Suspense, lazy, useEffect, useState } from "react";
@@ -40,7 +40,7 @@ const Comment = ({ commentId, className, first = false }: CommentProps) => {
   }
   if (error || !data) return <div>Error</div>;
   const { text, by, time, kids } = data;
-  const hoursAgo = getHoursAgo(time);
+  const timeAgo = getTimeAgo(time);
 
   return (
     <Card className={cn(className, styles.comment)} mode="outline">
@@ -48,9 +48,7 @@ const Comment = ({ commentId, className, first = false }: CommentProps) => {
         <SplitCol>
           <SplitLayout>
             <SimpleCell before={<Icon12User />}>{by}</SimpleCell>
-            <SimpleCell before={<Icon12Clock />}>
-              {hoursAgo + " hours ago"}
-            </SimpleCell>
+            <SimpleCell before={<Icon12Clock />}>{timeAgo}</SimpleCell>
             {kids && (
               <SimpleCell before={<Icon12Message />}>
                 {kids.length + " replies"}

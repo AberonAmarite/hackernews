@@ -15,7 +15,11 @@ const Header = () => {
   return (
     <PanelHeader>
       <SplitLayout>
-        <IconButton onClick={() => routeNavigator.push("/")}>
+        <IconButton
+          aria-label="Home"
+          title="Home"
+          onClick={() => routeNavigator.push("/")}
+        >
           <Icon24Home />
         </IconButton>
         <Title level="1" className={styles.header__title}>
