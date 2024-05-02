@@ -1,6 +1,5 @@
 import {
   createBrowserRouter,
-  createHashRouter,
   createPanel,
   createRoot,
   createView,

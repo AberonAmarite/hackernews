@@ -1,8 +1,5 @@
 import { useParams } from "@vkontakte/vk-mini-apps-router";
-import { Group, Panel, PanelHeader, SplitLayout, Title } from "@vkontakte/vkui";
-import React from "react";
-import StoryList from "../../../widgets/StoryList";
-import { Icon12Home } from "@vkontakte/icons";
+import { Group, Panel, Title } from "@vkontakte/vkui";
 import Header from "../../../widgets/header";
 import { StoryDetails } from "../../../entities/story";
 import { useGetStoryItemByIdQuery } from "../../../shared/api/news";

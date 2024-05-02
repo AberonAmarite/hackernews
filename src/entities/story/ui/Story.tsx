@@ -1,5 +1,4 @@
 import { ContentCard } from "@vkontakte/vkui";
-import { getHoursAgo } from "../../../shared/utils/lib/date";
 import { useGetStoryItemByIdQuery } from "../../../shared/api/news";
 import { useRouteNavigator } from "@vkontakte/vk-mini-apps-router";
 import { routes } from "../../../shared/routes/routes";

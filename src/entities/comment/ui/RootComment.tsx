@@ -1,7 +1,9 @@
-import React from "react";
 import Comment from "./Comment";
 
-const RootComment = ({ commentId }) => {
+interface RootCommentProps {
+  commentId: number;
+}
+const RootComment = ({ commentId }: RootCommentProps) => {
   return <Comment commentId={commentId} first />;
 };
 

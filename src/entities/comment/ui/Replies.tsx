@@ -1,7 +1,4 @@
-import { Icon24AddOutline, Icon24MinusOutline } from "@vkontakte/icons";
-import { Accordion } from "@vkontakte/vkui";
 import styles from "./Comment.module.css";
-import { useEffect, useState } from "react";
 import Comment from "./Comment";
 interface RepliesProps {
   replyIds: number[];

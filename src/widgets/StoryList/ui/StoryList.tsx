@@ -1,9 +1,8 @@
-import React, { memo, useEffect, useState } from "react";
+import { memo, useEffect, useState } from "react";
 import Story from "../../../entities/story";
-import { hackernewsApi, useGetTopStoriesQuery } from "../../../shared/api/news";
+import { useGetTopStoriesQuery } from "../../../shared/api/news";
 import {
   CardGrid,
-  Div,
   Group,
   Header,
   IconButton,

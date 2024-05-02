@@ -1,13 +1,10 @@
 import {
-  Accordion,
   Group,
   Header,
   IconButton,
-  Spacing,
   SplitCol,
   SplitLayout,
 } from "@vkontakte/vkui";
-import Comment from "../../../entities/comment";
 import RootComment from "../../../entities/comment/ui/RootComment";
 import { Icon24Refresh } from "@vkontakte/icons";
 interface CommentSectionProps {

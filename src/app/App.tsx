@@ -1,12 +1,4 @@
-import { useState, useEffect, ReactNode } from "react";
-import bridge, { UserInfo } from "@vkontakte/vk-bridge";
-import {
-  View,
-  SplitLayout,
-  SplitCol,
-  ScreenSpinner,
-  Root,
-} from "@vkontakte/vkui";
+import { View, SplitLayout, SplitCol, Root } from "@vkontakte/vkui";
 import { useActiveVkuiLocation } from "@vkontakte/vk-mini-apps-router";
 
 import { Home } from "../pages";
@@ -16,11 +8,9 @@ import {
   DEFAULT_VIEW_PANELS,
 } from "../shared/routes/routes";
 import StoryPage from "../pages/story/ui/StoryPage";
-import Header from "../widgets/header";
 
 export const App = () => {
   const {
-    root: activeRoot = DEFAULT_ROOT,
     view: activeView = DEFAULT_VIEW,
     panel: activePanel = DEFAULT_VIEW_PANELS.HOME,
   } = useActiveVkuiLocation();

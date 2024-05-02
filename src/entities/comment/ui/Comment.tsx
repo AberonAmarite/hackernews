@@ -1,29 +1,20 @@
 import {
-  Accordion,
   Button,
   Card,
   Div,
   Paragraph,
   SimpleCell,
-  Spacing,
   Spinner,
   SplitCol,
   SplitLayout,
-  Text,
 } from "@vkontakte/vkui";
 import { useGetCommentByIdQuery } from "../../../shared/api/news";
 import DangerousHTML from "../../../shared/ui/DangerousHTML/DangerousHTML";
-import {
-  Icon12Clock,
-  Icon12Message,
-  Icon12User,
-  Icon24AddOutline,
-  Icon24MinusOutline,
-} from "@vkontakte/icons";
+import { Icon12Clock, Icon12Message, Icon12User } from "@vkontakte/icons";
 import { getTimeAgo } from "../../../shared/utils/lib/date";
 import styles from "./Comment.module.css";
 import { cn } from "../../../shared/utils/lib/class";
-import { Suspense, lazy, useEffect, useState } from "react";
+import { Suspense, lazy, useState } from "react";
 interface CommentProps {
   commentId: number;
   className?: string;

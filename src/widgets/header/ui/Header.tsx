@@ -1,12 +1,6 @@
-import { Icon24Home, Icon16Delete } from "@vkontakte/icons";
+import { Icon24Home } from "@vkontakte/icons";
 import { useRouteNavigator } from "@vkontakte/vk-mini-apps-router";
-import {
-  IconButton,
-  Link,
-  PanelHeader,
-  SplitLayout,
-  Title,
-} from "@vkontakte/vkui";
+import { IconButton, PanelHeader, SplitLayout, Title } from "@vkontakte/vkui";
 import styles from "./Header.module.css";
 
 const Header = () => {
