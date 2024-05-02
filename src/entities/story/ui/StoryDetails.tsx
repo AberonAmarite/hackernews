@@ -1,10 +1,10 @@
 import { Link, SimpleCell, SplitLayout } from "@vkontakte/vkui";
 import {
-  Icon12Chain,
-  Icon12Clock,
-  Icon12Message,
-  Icon12Tag,
-  Icon12User,
+  Icon16Clock,
+  Icon16Message,
+  Icon20Chain,
+  Icon20User,
+  Icon24AddAwardsOutline,
 } from "@vkontakte/icons";
 import { getHoursAgo } from "../../../shared/utils/lib/date";
 import { Story as StoryDetailsType } from "../model/Story";
@@ -17,15 +17,19 @@ const StoryDetails = ({ data }: StoryDetailsProps) => {
   const { hostname } = new URL(url);
   return (
     <SplitLayout>
-      <SimpleCell before={<Icon12User />}>{by}</SimpleCell>
-      <SimpleCell before={<Icon12Tag />}>{score}</SimpleCell>
-      <SimpleCell before={<Icon12Clock />}>
+      <SimpleCell title="Author" before={<Icon20User />}>
+        {by}
+      </SimpleCell>
+      <SimpleCell title="HackerNews Score" before={<Icon24AddAwardsOutline />}>
+        {score}
+      </SimpleCell>
+      <SimpleCell title="Time of publishing" before={<Icon16Clock />}>
         {hoursAgo + " hours ago"}
       </SimpleCell>
-      <SimpleCell before={<Icon12Message />}>
+      <SimpleCell title="Comment count" before={<Icon16Message />}>
         {descendants + " comments"}
       </SimpleCell>
-      <SimpleCell before={<Icon12Chain />}>
+      <SimpleCell title="Story link" before={<Icon20Chain />}>
         <Link
           onClick={(e) => {
             e.stopPropagation();

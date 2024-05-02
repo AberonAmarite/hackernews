@@ -1,12 +1,26 @@
-import { Icon12Home } from "@vkontakte/icons";
-import { PanelHeader, SplitLayout } from "@vkontakte/vkui";
+import { Icon24Home, Icon16Delete } from "@vkontakte/icons";
+import { useRouteNavigator } from "@vkontakte/vk-mini-apps-router";
+import {
+  IconButton,
+  Link,
+  PanelHeader,
+  SplitLayout,
+  Title,
+} from "@vkontakte/vkui";
+import styles from "./Header.module.css";
 
 const Header = () => {
+  const routeNavigator = useRouteNavigator();
+
   return (
     <PanelHeader>
       <SplitLayout>
-        <Icon12Home />
-        Hacker News
+        <IconButton onClick={() => routeNavigator.push("/")}>
+          <Icon24Home />
+        </IconButton>
+        <Title level="1" className={styles.header__title}>
+          Hacker News
+        </Title>
       </SplitLayout>
     </PanelHeader>
   );
